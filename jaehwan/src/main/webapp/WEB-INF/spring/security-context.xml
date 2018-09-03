@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<http auto-config="true">
+		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+	</http>
+	
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="bcrypt"/>
+			<user-service>
+				<user name="jaehwan" password="$2a$10$zpE1ThBwaRlZM2uMMShksurhrRjw/QtUZXB4cfON4.owLTFqkyQx." authorities="ROLE_STUDENT,ROLE_TEACHER"/>
+				<user name="dragon" password="{noop}111" authorities="ROLE_STUDENT"/>
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>

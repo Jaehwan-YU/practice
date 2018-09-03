@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- <context:annotation-config/>
+	<context:component-scan base-package="com.newlecture.aop"/> -->
+	
+	<!-- targer object -->
+	<bean name="target" class="com.newlecture.aop.spring.NewlecCalculator"/>
+
+	
+	<!-- handler object -->
+	<bean name="before" class="com.newlecture.aop.spring.AuthorHandler"/>
+	<bean name="around" class="com.newlecture.aop.spring.LogHandler"/>
+	<bean name="after" class="com.newlecture.aop.spring.AfterHandler"/>
+	<bean name="throwing" class="com.newlecture.aop.spring.ErrorHandler"/>
+	
+	<!-- point cut 도구 4가지 -->
+	<!-- 도구 1: 이름으로 cutting 하기 -->
+	<!-- <bean name="namedPointCut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+		<property name="mappedNames">
+			<list>
+				<value>add</value>
+				<value>div</value>
+			</list>
+		</property>
+	</bean> -->
+	
+	<!-- 어떤 포인트 컷에 어떤 어드바이스를 사용하게 할 것인지를 알려주는 구조체 --> 
+	<!-- <bean name="namedAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="pointcut" ref="namedPointCut"/>
+		<property name="advice" ref="around"/>	
+	</bean> -->
+	
+	<!-- 포인트 컷 + 어드바이스 정보를 하나로 가지는 Advisor -->
+	<bean name="patternAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="pattern" value=".*add"/>
+		<property name="advice" ref="before"/>
+	</bean>
+	
+	
+	<!-- proxy object -->
+	<bean name="cal" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="target"/>
+		<property name="interceptorNames">
+			<list>
+				<value>patternAdvisor</value>
+				<!-- <value>namedAdvisor</value> -->
+				<!-- 다음은 포인트 컷을 사용하지 않은 설정 -->
+				<!-- <value>throwing</value>
+				<value>before</value>
+				<value>around</value>
+				<value>after</value> -->
+			</list>
+		</property>
+	</bean>
+
+</beans>
