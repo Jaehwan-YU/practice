@@ -17,7 +17,7 @@ public class MemberRole {
 		this.defaultRole = defaultRole;
 	}
 	
-	public boolean isDefaultRole() {
+	public boolean getDefaultRole() {
 		return defaultRole;
 	}
 	

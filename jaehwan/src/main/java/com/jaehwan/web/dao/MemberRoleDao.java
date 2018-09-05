@@ -2,6 +2,8 @@ package com.jaehwan.web.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jaehwan.web.entity.MemberRole;
 
 public interface MemberRoleDao {
@@ -10,7 +12,7 @@ public interface MemberRoleDao {
 	int update(MemberRole memberRole);
 	int delete(MemberRole memberRole);
 	
-	List<MemberRole> get(String memberId);
+	List<MemberRole> getList(String memberId);
 	List<MemberRole> getList();
 	
 }

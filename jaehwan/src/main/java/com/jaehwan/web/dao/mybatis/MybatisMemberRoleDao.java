@@ -2,6 +2,7 @@ package com.jaehwan.web.dao.mybatis;
 
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,15 +35,14 @@ public class MybatisMemberRoleDao implements MemberRoleDao {
 	}
 
 	@Override
-	public List<MemberRole> get(String memberId) {
+	public List<MemberRole> getList(String memberId) {
 		MemberRoleDao memberRoleDao = sqlSession.getMapper(MemberRoleDao.class);
-		return memberRoleDao.get(memberId);
+		return memberRoleDao.getList(memberId);
 	}
 
 	@Override
 	public List<MemberRole> getList() {
-		MemberRoleDao memberRoleDao = sqlSession.getMapper(MemberRoleDao.class);
-		return memberRoleDao.getList();
+		return getList(null);
 	}
 
 }
