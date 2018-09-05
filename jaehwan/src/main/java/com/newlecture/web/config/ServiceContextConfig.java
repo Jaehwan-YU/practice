@@ -12,18 +12,26 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@ComponentScan(basePackages="com.jaehwan.web.dao.mybatis")
+@ComponentScan(basePackages= {"com.jaehwan.web.dao.mybatis", "com.newlecture.web.service"})
 public class ServiceContextConfig {
 	
 	
 	@Bean
 	public BasicDataSource DataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		
-		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		//MS SQL Server
+	    dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		dataSource.setUrl("jdbc:sqlserver://211.238.142.251:1433;databaseName=lecture");
 		dataSource.setUsername("sist");
 		dataSource.setPassword("dclass");
+		
+		
+		//MySQL or MariaDB
+		/*
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://211.238.142.37:3306/newlecturedb?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8");
+		dataSource.setUsername("eatchu");
+		dataSource.setPassword("soakfaktwlq91");*/
 		
 		dataSource.setRemoveAbandoned(true);
 		dataSource.setInitialSize(20);

@@ -4,15 +4,25 @@ public class MemberRole {
 	
 	private String memberId;
 	private String roleName;
-	
+	private boolean defaultRole;
+
 	public MemberRole() {
 		
 	}
 	
-	public MemberRole(String memberId, String roleName) {
+	public MemberRole(String memberId, String roleName, boolean defaultRole) {
 		super();
 		this.memberId = memberId;
 		this.roleName = roleName;
+		this.defaultRole = defaultRole;
+	}
+	
+	public boolean isDefaultRole() {
+		return defaultRole;
+	}
+	
+	public void setDefaultRole(boolean defaultRole) {
+		this.defaultRole = defaultRole;
 	}
 	
 	public String getMemberId() {

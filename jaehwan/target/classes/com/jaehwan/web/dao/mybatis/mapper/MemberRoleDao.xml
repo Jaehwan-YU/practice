@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaehwan.web.dao.MemberRoleDao">
+	<!-- 
+  <select id="getList" resultType="com.answeris.web.entity.Notice">
+     select reg_date regDate, writer_id writerId, m.* from (select rownum num, n.* from 
+     (select * from notice where ${param1} like '%${param2}%' order by reg_date desc) n) m
+     	where num between (#{param3}-1)*10+1 and #{param3}*10
+  </select> -->
+
+  <insert id="insert" parameterType="com.jaehwan.web.entity.MemberRole">
+  	insert into MemberRole(memberId, roleName) 
+  	values(#{memberId},#{roleName})
+  </insert>
+  
+  <update id="update" parameterType="com.jaehwan.web.entity.MemberRole">
+  	update [MemberRole]
+  	set [roleName] = #{roleName}
+  	,[defaultRole] = #{defaultRole}
+  	where memberId = #{memberId} and roleName = #{roleName}
+  </update>
+  
+  
+  <delete id="delete" parameterType="com.jaehwan.web.entity.MemberRole">
+   delete from MemberRole
+   where memberId=#{memberId} and roleName = #{roleName}
+  </delete>
+  
+  <select id="get" resultType="com.jaehwan.web.entity.MemberRole">
+   select * from MemberRole where memberId = #{param1}
+  </select>
+  
+  <select id="getList" resultType="com.jaehwan.web.entity.MemberRole">
+    select * from MemberRole
+   <!--  where ${param1} like '%${param2}%'
+   다음은 페이징을 위한 쿼리 옵션
+	order by regDate desc
+	offset #{(param3-1)*10} rows 
+	fetch next 10 rows only -->
+  </select>
+  
+</mapper>

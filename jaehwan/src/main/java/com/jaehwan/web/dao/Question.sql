@@ -1,4 +1,2 @@
-insert into memberrole(memberId, roleName) values('sora','ROLE_STUDENT')
-select*from memberrole
-select*from member
-select memberId id, roleName authority from MemberRole where memberId=?
+update memberRole set defaultRole = 1
+where memberId = 'sora' and roleName = 'ROLE_TEACHER'

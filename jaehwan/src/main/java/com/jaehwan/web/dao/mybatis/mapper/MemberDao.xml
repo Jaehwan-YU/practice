@@ -25,7 +25,7 @@
   
   
   <delete id="delete" parameterType="String">
-   delete from [dbo].[Member]
+   delete Member
    where id=#{param1}
   </delete>
   

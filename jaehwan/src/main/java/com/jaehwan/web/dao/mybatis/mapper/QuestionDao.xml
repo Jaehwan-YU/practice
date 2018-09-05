@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaehwan.web.dao.QuestionDao">
+	<!-- 
+  <select id="getList" resultType="com.answeris.web.entity.Notice">
+     select reg_date regDate, writer_id writerId, m.* from (select rownum num, n.* from 
+     (select * from notice where ${param1} like '%${param2}%' order by reg_date desc) n) m
+     	where num between (#{param3}-1)*10+1 and #{param3}*10
+  </select> -->
+
+  <insert id="insert" parameterType="com.jaehwan.web.entity.Question">
+  	insert into Question(content, figure, regUsrId) 
+  	values(#{content},#{figure},#{regUserId})
+  </insert>
+  
+  <update id="update" parameterType="com.jaehwan.web.entity.Question">
+  	update [Question]
+  	set [content] = #{content}
+  	,[figure] = #{figure}
+  	,[regUserId] = #{regUserId}
+  	where id = #{id}
+  </update>
+  
+  
+  <delete id="delete" parameterType="Long">
+   delete Question
+   where id=#{param1}
+  </delete>
+  
+  <select id="get" resultType="com.jaehwan.web.entity.Question">
+   select * from Question where id = #{param1}
+  </select>
+  
+  <select id="getList" resultType="com.jaehwan.web.entity.Question">
+ 
+  </select>
+  
+</mapper>

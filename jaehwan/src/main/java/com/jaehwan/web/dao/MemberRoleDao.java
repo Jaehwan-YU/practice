@@ -8,9 +8,9 @@ public interface MemberRoleDao {
 	
 	int insert(MemberRole memberRole);
 	int update(MemberRole memberRole);
-	int delete(String id);
+	int delete(MemberRole memberRole);
 	
-	MemberRole get(String id);
+	List<MemberRole> get(String memberId);
 	List<MemberRole> getList();
 	
 }
