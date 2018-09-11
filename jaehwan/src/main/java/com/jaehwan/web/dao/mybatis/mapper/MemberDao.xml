@@ -42,4 +42,9 @@
 	fetch next 10 rows only
   </select>
   
+   <select id="getByEmail" resultType="com.jaehwan.web.entity.Member">
+   select * from Member where email = #{param1}
+  </select>
+  
+  
 </mapper>

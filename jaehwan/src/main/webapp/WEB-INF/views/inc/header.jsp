@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>	
 
 <header id="header">
 	<h1>
@@ -25,17 +26,40 @@
 				<div class="uid"><span>jaehwan</span></div>
 				<%-- <%=  request.getUserPrincipal().getName() %>
 				${pageContext.request.userPrincipal.name} --%>
-				<c:if test="${empty pageContext.request.userPrincipal}">
+				<%-- <c:if test="${empty pageContext.request.userPrincipal}">
 					<div class="auth-status"><a href="/jaehwan/member/login">로그인</a></div>
-				</c:if>
-				<c:if test="${not empty pageContext.request.userPrincipal}">
-					<div class="auth-status"><a href="/jaehwan/member/logout">로그아웃</a></div>
-				</c:if>
-				<div class="notice"><span>강사공지 : </span><a href="">3</a></div>
+				</c:if> --%>
+				<!-- 
+				https://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html
+				https://www.mkyong.com/spring3/spring-el-operators-example/
+				 -->
+				 <div class="auth-status">
+				<security:authorize access="!isAuthenticated()">
+					<a href="/jaehwan/member/login">로그인</a>	
+				</security:authorize>
+				
+				<%-- <c:if test="${not empty pageContext.request.userPrincipal}">
+					<div class="auth-status"><a href="/jaehwan/member/logout">
+					${not empty pageContext.request.userPrincipal.name}님 로그아웃</a></div>
+				</c:if> --%>
+				<security:authorize access="isAuthenticated()">
+					<a href="/jaehwan/member/logout">
+						<security:authentication property="name"/>님 로그아웃</a>
+				</security:authorize>
+				
+					<a href="/jaehwan/member/join">회원가입</a>
+				</div>
+				
+				<security:authorize access="hasRole('TEACHER')">
+					<!-- <div class="notice"><span>강사공지 : </span><a href="">3</a></div> -->
+					<div class="notice"><span>강사공지 : </span><a href="">3</a></div>
+				</security:authorize>
 			</div>
 		</section>
+		
+		
 		<section id="teacher-menu">
-			<h1 class="hidden">메인메뉴</h1>
+			<h1 class="hidden">강사메뉴</h1>
 			<ul>
 				<li><a href="/jaehwan/teacher/question/choice-reg">문제관리</a></li>
 				<li><a href="">시험관리</a></li>
@@ -43,6 +67,7 @@
 				<li><a href="">수업관리</a></li>
 			</ul>
 		</section>
+		
 	</aside>
 </header>
 <script>
