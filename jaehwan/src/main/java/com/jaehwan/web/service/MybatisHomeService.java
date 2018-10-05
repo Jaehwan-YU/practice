@@ -1,4 +1,4 @@
-package com.newlecture.web.service;
+package com.jaehwan.web.service;
 
 import java.util.List;
 
@@ -11,13 +11,15 @@ import com.jaehwan.web.entity.Member;
 import com.jaehwan.web.entity.MemberRole;
 
 @Service
-public class HbHomeService {
+public class MybatisHomeService implements HomeService{
 	
 	@Autowired
 	private MemberRoleDao memberRoleDao;
+	
 	@Autowired
 	private MemberDao memberDao;
 
+	@Override
 	public String getDefaultRoleName(String memberId) {
 		
 		List<MemberRole> memberRoles = memberRoleDao.getList(memberId);
@@ -33,33 +35,19 @@ public class HbHomeService {
 	}
 
 	public boolean isEmailDuplicated(String email) {
-		
 		Member member = memberDao.getByEmail(email);
-		
 		if(member != null)
 			return true;
 		
 		return false;
-	}
-	
-	public boolean isIdDuplicated(String id) {
-		
-		Member member = memberDao.get(id);
-		
-		if(member != null)
-			return true;
-		
-		return false;
-		
 	}
 
-	public int insertMember(Member member) {
+	public boolean isIdDuplicated(String id) {
+		Member member = memberDao.get(id);
+		if(member != null)
+			return true;
 		
-		int result = memberDao.insert(member);
-		memberRoleDao.insert(new MemberRole(member.getId(), "ROLE_STUDENT" , true));
-		
-		return result;
-	}
-	
+		return false;
+	} 
 	
 }

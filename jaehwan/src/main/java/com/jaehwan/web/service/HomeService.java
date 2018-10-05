@@ -1,4 +1,4 @@
-package com.newlecture.web.service;
+package com.jaehwan.web.service;
 
 public interface HomeService {
 

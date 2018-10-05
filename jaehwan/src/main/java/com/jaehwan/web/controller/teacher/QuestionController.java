@@ -3,7 +3,7 @@ package com.jaehwan.web.controller.teacher;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jaehwan.web.entity.QuestionLevel;
 import com.jaehwan.web.entity.Question;
 import com.jaehwan.web.entity.Subject;
+
 import com.newlecture.web.service.MybatisTeacherService;
 
 @Controller
@@ -23,10 +24,11 @@ public class QuestionController {
 	private MybatisTeacherService service;
 	
 	@RequestMapping("type")
+
 	public String type(Model model, Principal principal) {
 		System.out.println(principal.getName());
 		model.addAttribute("test", "예아");
-		
+
 		return "teacher.question.type";
 	}
 	

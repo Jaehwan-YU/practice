@@ -1,4 +1,4 @@
-package com.newlecture.web.config;
+package com.jaehwan.web.config;
 
 import java.io.IOException;
 
@@ -15,13 +15,13 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
-import com.newlecture.web.service.HbHomeService;
+import com.jaehwan.web.service.MybatisHomeService;
 
 @Component
 public class NewlectuerAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 	
 	@Autowired
-	private HbHomeService homeService;
+	private MybatisHomeService homeService;
 	
 	RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	

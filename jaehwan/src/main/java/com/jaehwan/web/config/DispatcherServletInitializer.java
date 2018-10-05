@@ -1,4 +1,4 @@
-package com.newlecture.web.config;
+package com.jaehwan.web.config;
 
 import javax.servlet.Filter;
 
