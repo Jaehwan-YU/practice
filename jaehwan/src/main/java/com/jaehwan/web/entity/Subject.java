@@ -2,11 +2,19 @@ package com.jaehwan.web.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Subject {
 	
+	@Id
+	@Column(updatable=false)
 	private long id;
 	private String title;
 	private String description;
+	@Column(insertable=false, updatable=false)
 	private Date regDate;
 	private String regUserId;
 	

@@ -30,11 +30,19 @@
   </delete>
   
   <select id="get" resultType="com.jaehwan.web.entity.Question">
-   select * from Question where id = #{param1}
+ 	  select * from Question where id = #{param1}
   </select>
   
   <select id="getList" resultType="com.jaehwan.web.entity.Question">
- 
+ 		select * from Question
+		where content like '%${param1}%'
+		<if test="param2 != null">
+		and regUserId = #{param2}
+		</if>
+		<!-- 다음은 페이징을 위한 쿼리 옵션 -->
+		order by ${param3} desc
+		offset #{(param4-1)}*10 rows
+		fetch next 10 rows only
   </select>
   
 </mapper>

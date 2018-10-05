@@ -11,6 +11,7 @@ public interface MemberDao {
 	int delete(String id);
 	
 	Member get(String id);
+	Member getByEmail(String email);
 	List<Member> getList();
 	List<Member> getList(int page);
 	List<Member> getList(String field, String query);

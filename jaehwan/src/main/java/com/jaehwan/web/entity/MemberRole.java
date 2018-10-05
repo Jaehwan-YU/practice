@@ -1,9 +1,18 @@
 package com.jaehwan.web.entity;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
 public class MemberRole {
 	
-	private String memberId;
-	private String roleName;
+	@EmbeddedId
+	private MemberRoleId id;
+	/*private String memberId;
+	private String roleName;*/
+	
+	@Column(insertable=false)
 	private boolean defaultRole;
 
 	public MemberRole() {
@@ -12,8 +21,7 @@ public class MemberRole {
 	
 	public MemberRole(String memberId, String roleName, boolean defaultRole) {
 		super();
-		this.memberId = memberId;
-		this.roleName = roleName;
+		this.id = new MemberRoleId(memberId, roleName);
 		this.defaultRole = defaultRole;
 	}
 	
@@ -26,22 +34,24 @@ public class MemberRole {
 	}
 	
 	public String getMemberId() {
-		return memberId;
+		return id.getMemberId();
 	}
 	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+		this.id.setMemberId(memberId);
 	}
 	public String getRoleName() {
-		return roleName;
+		return id.getRoleName();
 	}
 	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+		this.id.setRoleName(roleName);
 	}
 
 	@Override
 	public String toString() {
-		return "MemberRole [memberId=" + memberId + ", roleName=" + roleName + "]";
+		return "MemberRole [id=" + id + ", defaultRole=" + defaultRole + ", getDefaultRole()=" + getDefaultRole()
+				+ ", getMemberId()=" + getMemberId() + ", getRoleName()=" + getRoleName() + "]";
 	}
+
 	
 	
 }

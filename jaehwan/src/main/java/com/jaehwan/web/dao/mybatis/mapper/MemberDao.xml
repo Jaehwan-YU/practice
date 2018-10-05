@@ -32,6 +32,10 @@
   <select id="get" resultType="com.jaehwan.web.entity.Member">
    select * from Member where id = #{param1}
   </select>
+ 
+  <select id="getByEmail" resultType="com.jaehwan.web.entity.Member">
+   select * from Member where email = #{param1}
+  </select>
   
   <select id="getList" resultType="com.jaehwan.web.entity.Member">
     select * from Member

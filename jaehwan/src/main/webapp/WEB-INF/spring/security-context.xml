@@ -10,7 +10,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
 	<http auto-config="true">
+		<headers>
+			<frame-options policy = "SAMEORIGIN"/>
+			<!-- DENY, SAMEORIGIN, ALLOW-FROM -->
+		</headers>
+		
 		<intercept-url pattern="/teacher/**" access="hasRole('ROLE_TEACHER')"/>
+		
 	</http>
 	
 	<authentication-manager>

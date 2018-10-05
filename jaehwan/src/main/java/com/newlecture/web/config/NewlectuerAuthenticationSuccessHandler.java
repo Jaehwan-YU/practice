@@ -15,13 +15,13 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
-import com.newlecture.web.service.MybatisHomeService;
+import com.newlecture.web.service.HomeService;
 
 @Component
 public class NewlectuerAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 	
 	@Autowired
-	private MybatisHomeService homeService;
+	private HomeService homeService;
 	
 	RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
-
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <header id="header">
 	<h1>
 		<a href="">
@@ -16,7 +16,7 @@
 		<input type="button" value="검색" class="find-button button" /> <input
 			type="button" value="메뉴보기" class="hamburger-button button" />
 	</section>
-	<aside id="login-info">
+	<aside id="login-info"> 
 		<h1 class="hidden">메인메뉴</h1>
 		<section id="profile">
 			<h1 class="hidden">프로필</h1>
@@ -25,13 +25,30 @@
 				<div class="uid"><span>jaehwan</span></div>
 				<%-- <%=  request.getUserPrincipal().getName() %>
 				${pageContext.request.userPrincipal.name} --%>
-				<c:if test="${empty pageContext.request.userPrincipal}">
+				<%-- <c:if test="${empty pageContext.request.userPrincipal}">
 					<div class="auth-status"><a href="/jaehwan/member/login">로그인</a></div>
-				</c:if>
-				<c:if test="${not empty pageContext.request.userPrincipal}">
-					<div class="auth-status"><a href="/jaehwan/member/logout">로그아웃</a></div>
-				</c:if>
+				</c:if> --%>
+				<!-- 
+				https://docs.spring.io/spring-security/site/docs/current/reference/html/el-access.html 
+				
+				-->
+				<div class="auth-status">
+				<security:authorize access="!isAuthenticated()">
+					<a href="/jaehwan/member/login">로그인</a>
+				</security:authorize>
+				<security:authorize access="isAuthenticated()">
+					<a href="/jaehwan/member/logout">
+						<security:authentication property="name"/>님 로그아웃
+					</a>
+				</security:authorize>
+				
+					<a href="/jaehwan/member/join">회원가입</a>
+					
+				</div>
+				<security:authorize access="hasRole('TEACHER')">
 				<div class="notice"><span>강사공지 : </span><a href="">3</a></div>
+				</security:authorize>
+				
 			</div>
 		</section>
 		<section id="teacher-menu">

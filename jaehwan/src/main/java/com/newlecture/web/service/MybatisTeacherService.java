@@ -6,63 +6,50 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jaehwan.web.dao.LevelDao;
+import com.jaehwan.web.dao.QuestionLevelDao;
 import com.jaehwan.web.dao.QuestionDao;
 import com.jaehwan.web.dao.SubjectDao;
-import com.jaehwan.web.entity.Level;
+import com.jaehwan.web.entity.QuestionLevel;
 import com.jaehwan.web.entity.Question;
 import com.jaehwan.web.entity.Subject;
 
 @Service
-public class MybatisTeacherService implements TeacherService {
+public class MybatisTeacherService{
 
 	@Autowired
 	private SubjectDao subjectDao;
 	@Autowired
-	private LevelDao levelDao;
+	private QuestionLevelDao levelDao;
 	@Autowired
 	private QuestionDao questionDao;
 	
-	@Override
 	public List<Subject> getSubjectList() {
-		
-		return null;
+		return subjectDao.getList();
 	}
 
-	@Override
-	public List<Level> getLevelList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<QuestionLevel> getLevelList() {
+		return levelDao.getList();
 	}
 
-	@Override
+
 	public List<Question> getQuestionList() {
-		// TODO Auto-generated method stub
-		return null;
+		return getQuestionList("", null,"regDate",1);
 	}
 
-	@Override
+
 	public List<Question> getQuestionList(String query) {
-		// TODO Auto-generated method stub
-		return null;
+		return getQuestionList(query, null ,"regDate",1);
+	}
+	public List<Question> getQuestionList(String query, int page) {	
+		return getQuestionList(query, null, "regDate", page);
 	}
 
-	@Override
-	public List<Question> getQuestionList(String query, int page) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Question> getQuestionList(String query, String ownerId, int page) {
+		return getQuestionList(query, ownerId, "regDate", page);	
 	}
 
-	@Override
-	public List<Question> getQuestionList(String query, boolean all, int page) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Question> getQuestionList(String query, boolean all, String sortField, int page) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Question> getQuestionList(String query,  String ownerId, String sortField, int page) {
+		return questionDao.getList(query, ownerId, sortField, page);
 	}
 
 }

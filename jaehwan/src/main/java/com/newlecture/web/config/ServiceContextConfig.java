@@ -1,5 +1,7 @@
 package com.newlecture.web.config;
 
+import java.util.Properties;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -10,14 +12,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 @Configuration
-@ComponentScan(basePackages= {"com.jaehwan.web.dao.mybatis", "com.newlecture.web.service"})
+@EnableTransactionManagement
+@ComponentScan(basePackages= {"com.jaehwan.web.dao.hb", "com.newlecture.web.service"})
 public class ServiceContextConfig {
 	
 	
 	@Bean
-	public BasicDataSource DataSource() {
+	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		//MS SQL Server
 	    dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -40,7 +49,35 @@ public class ServiceContextConfig {
 		return dataSource;
 	}
 	
+	//Hibernate 설정을 위한 빈 객체들
 	@Bean
+	public LocalSessionFactoryBean sessionFactory() {
+		
+		Properties props = new Properties();
+		props.put("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
+		props.put("hibernate.show_sql", "true");
+		
+		
+		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+		sessionFactoryBean.setDataSource(dataSource());
+		sessionFactoryBean.setPackagesToScan("com.jaehwan.web.entity");
+		sessionFactoryBean.setHibernateProperties(props);
+		
+		return sessionFactoryBean;
+	}
+	
+	@Bean
+	public HibernateTransactionManager transactionManager() {
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+		
+		transactionManager.setSessionFactory(sessionFactory().getObject());
+		
+		return transactionManager;
+	}
+	
+	
+	//MyBatis 설정을 위한 빈 객체들
+/*	@Bean
 	public SqlSessionFactory sqlSessionFactory(BasicDataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
 		
@@ -53,12 +90,32 @@ public class ServiceContextConfig {
 		return sqlSessionFactory.getObject();
 		
 	}
-	
+
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		
 		return new SqlSessionTemplate(sqlSessionFactory);
 		
+	}*/
+	
+	@Bean
+	public JavaMailSender mailSender() {
+		
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setDefaultEncoding("UTF-8");
+		mailSender.setHost("smtp.gmail.com");
+		mailSender.setPort(587);
+		mailSender.setUsername("woghks2045@gmail.com");
+		mailSender.setPassword("zksptmxps1!");
+		
+		Properties javaMailProperties = new Properties();
+		javaMailProperties.put("mail.transport.protocol", "smtp");
+		javaMailProperties.put("mail.smtp.auth", true);
+		javaMailProperties.put("mail.smtp.starttls.enable", true);
+		javaMailProperties.put("mail.debug", true);
+		mailSender.setJavaMailProperties(javaMailProperties);
+		
+		return mailSender;
 	}
 	
 }

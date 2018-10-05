@@ -11,9 +11,6 @@ public interface QuestionDao {
 	int delete(long id);
 	
 	Question get(long id);
-	List<Question> getList();
-	List<Question> getList(String query, int page);
-	List<Question> getList(String query, boolean all, int page);
-	List<Question> getList(String query, boolean all, String sortField, int page);
+	List<Question> getList(String query, String ownerId, String sortField, int page);
 	
 }

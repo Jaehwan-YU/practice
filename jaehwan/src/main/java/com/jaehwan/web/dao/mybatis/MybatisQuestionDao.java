@@ -38,35 +38,15 @@ public class MybatisQuestionDao implements QuestionDao {
 	@Override
 	public Question get(long id) {
 		QuestionDao questionDao = sqlSession.getMapper(QuestionDao.class);
-		return null;
+		return questionDao.get(id);
 	}
 
 	@Override
-	public List<Question> getList() {
+	public List<Question> getList(String query, String ownerId, String sortField, int page) {
 		QuestionDao questionDao = sqlSession.getMapper(QuestionDao.class);
-		return getList("",false,"",1);
+		
+		return questionDao.getList(query, ownerId, sortField, page);
 	}
 
-	@Override
-	public List<Question> getList(String query, int page) {
-		
-		QuestionDao questionDao = sqlSession.getMapper(QuestionDao.class);
-		
-		return getList(query, false, "", page);
-	}
-
-	@Override
-	public List<Question> getList(String query, boolean all, int page) {
-		QuestionDao questionDao = sqlSession.getMapper(QuestionDao.class);
-		
-		return getList(query, all, "", page);
-	}
-
-	@Override
-	public List<Question> getList(String query, boolean all, String sortField, int page) {
-		QuestionDao questionDao = sqlSession.getMapper(QuestionDao.class);
-		
-		return questionDao.getList(query, all, sortField, page);
-	}
 
 }

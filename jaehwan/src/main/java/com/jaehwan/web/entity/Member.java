@@ -2,12 +2,23 @@ package com.jaehwan.web.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+//테이블 명이 클래스 명과 다를경우 @Table(name="User")
 public class Member {
+	@Id
+	@Column(updatable=false)
 	private String id;
 	private String name;
 	private String email;
 	private String pwd;
+	@Column(insertable=false, updatable=false)
 	private Date regDate;
+	//컬럼 명이 속성명과 다를경우 @Column(name="FOTO")
+	private String photo;
 	
 	public Member() {
 		
@@ -52,11 +63,19 @@ public class Member {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", name=" + name + ", email=" + email + ", pwd=" + pwd + ", regDate=" + regDate
-				+ "]";
+				+ ", photo=" + photo + "]";
 	}
 	
 	
